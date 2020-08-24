@@ -2,16 +2,22 @@ import React, { Component } from 'react';
 import './TodoItem.css';
 
 class TodoItem extends Component {
-  render() {
-    const { text, checked, id, onToggle, onRemove } = this.props;
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.checked !== nextProps.checked;
+  }
+
+  render() {
+    const { text, checked, id, color, onToggle, onRemove } = this.props;
+
+    console.log(id);
     return (
       <div className="todo-item" onClick={() => onToggle(id)}>
         <div className="remove" onClick={(e) => {
           e.stopPropagation(); // onToggle 이 실행되지 않도록 함
           onRemove(id)}
-          }>&time;</div>
-          <div className={`todo-text ${ checked ? ' checked' : ''}`}>
+          }>&times;</div>
+          <div style={{ color }} className={`todo-text ${ checked ? ' checked' : ''}`}>
             <div>{text}</div>
           </div>
           {
